@@ -14,6 +14,7 @@ To view it locally, clone this repository and run elm-reactor:
 $ git clone https://github.com/kfish/elm-gamepad-tester.git
 $ cd elm-gamepad
 $ elm-package install
+# elm-make src/Main.elm --output target/elm.js
 $ elm-reactor
 ```
 
