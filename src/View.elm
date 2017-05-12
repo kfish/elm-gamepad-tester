@@ -169,10 +169,10 @@ drawerHeader model =
         , Color.text <| Color.color Color.Green Color.S900
         ]
         [ Options.styled Html.img
-            [ Options.attribute <| src "images/elm.png"
-            , css "width" "48px"
-            , css "height" "48px"
-            , css "border-radius" "24px"
+            [ Options.attribute <| src "images/xbox-1602822_640.jpg"
+            , css "width" "100%"
+            , css "height" "100%"
+            -- , css "border-radius" "24px"
             ]
             []
         ]
