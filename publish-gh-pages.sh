@@ -8,7 +8,7 @@ TARGET=target/elm.js
 git push ${REMOTE} master
 if [ -e ${TARGET} ]; then
 	git add -f ${TARGET}
-	git commit -m 'Update ${TARGET}'
+	git commit -m "Update ${TARGET}"
 	git push --force ${REMOTE} HEAD:gh-pages
 	git reset --hard HEAD^
 else
