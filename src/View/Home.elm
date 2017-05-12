@@ -35,7 +35,41 @@ textCell str =
         ]
 
 noGamepadsCell : Html msg
-noGamepadsCell = textCell "No gamepads connected."
+noGamepadsCell =
+        Table.table []
+            [ Table.thead []
+            [ Table.tr []
+                [ Table.th
+                    [ Options.attribute <| Html.Attributes.colspan 2 ]
+                    [ Html.text "No gamepads detected. Press a button to activate." ]
+                ]
+            ]
+            , Table.tbody []
+                [ blankRow "buttonBack"
+                , blankRow "buttonStart"
+                , blankRow "buttonLogo"
+
+                , blankRow "buttonA"
+                , blankRow "buttonB"
+                , blankRow "buttonX"
+                , blankRow "buttonY"
+
+                , blankRow "leftTrigger"
+                , blankRow "leftBumper "
+                , blankRow  "leftStick"
+                , blankRow "leftStick.button"
+
+                , blankRow "rightTrigger"
+                , blankRow "rightBumper"
+                , blankRow  "rightStick"
+                , blankRow "rightStick.button"
+
+                , blankRow "dPadUp"
+                , blankRow "dPadDown"
+                , blankRow "dPadLeft"
+                , blankRow "dPadRight"
+                ]
+            ]
 
 rawGamepadCell : Gamepad -> Html msg
 rawGamepadCell gamepad = case gamepad of
@@ -84,6 +118,15 @@ fieldRow name td =
             [ Table.td [] [ Html.text name ]
             , td
             ]
+
+blankRow : String -> Html msg
+blankRow name =
+    let
+        td = Table.td
+                 []
+                 []
+    in
+        fieldRow name td
 
 buttonRow : String -> Button -> Html msg
 buttonRow name button =
