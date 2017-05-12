@@ -5,7 +5,6 @@ import Msg exposing (Msg(..))
 import Html exposing (Html, div, text)
 import Material.Grid as Grid exposing (grid, size, cell, Device(..))
 import Material.Elevation as Elevation
-import Material.List as List
 import Material.Options as Options exposing (css)
 
 import Gamepad exposing (Gamepad)

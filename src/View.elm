@@ -15,7 +15,6 @@ import Material.Options as Options exposing (css, cs, when)
 import Route exposing (Route(..))
 import View.Home
 import View.RawData
-import Charts
 import Material.Scheme
 
 
@@ -56,7 +55,7 @@ view model =
                     , Snackbar.view model.snackbar |> Html.map Snackbar
                     , viewSource model
                     , helpDialog model
-                    ] ++ Charts.createDefinitions
+                    ]
                 }
 
 
