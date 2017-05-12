@@ -29,7 +29,8 @@ textCell str =
         ]
 
 noGamepadsCell : Grid.Cell msg
-noGamepadsCell = textCell "No gamepads connected."
+noGamepadsCell = textCell
+    "No gamepads detected. Press a button to activate."
 
 rawGamepadCell : Gamepad -> Grid.Cell msg
 rawGamepadCell gamepad = textCell (toString gamepad)
