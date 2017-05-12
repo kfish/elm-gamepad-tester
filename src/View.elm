@@ -14,7 +14,7 @@ import Material.Button as Button
 import Material.Options as Options exposing (css, cs, when)
 import Route exposing (Route(..))
 import View.Home
-import View.Users
+import View.RawData
 import Charts
 import Material.Scheme
 
@@ -103,12 +103,8 @@ type alias MenuItem =
 
 menuItems : List MenuItem
 menuItems =
-    [ { text = "Dashboard", iconName = "dashboard", route = Just Home }
-    , { text = "Users", iconName = "group", route = Just Users }
-    , { text = "Last Activity", iconName = "alarm", route = Nothing }
-    , { text = "Reports", iconName = "list", route = Nothing }
-    , { text = "Organizations", iconName = "store", route = Nothing }
-    , { text = "Project", iconName = "view_list", route = Nothing }
+    [ { text = "Gamepads", iconName = "gamepad", route = Just Home }
+    , { text = "Data", iconName = "code", route = Just RawData }
     ]
 
 
@@ -224,8 +220,8 @@ viewBody model =
         Just (Route.Home) ->
             View.Home.view model
 
-        Just (Route.Users) ->
-            View.Users.view model
+        Just (Route.RawData) ->
+            View.RawData.view model
 
         Nothing ->
             text "404"

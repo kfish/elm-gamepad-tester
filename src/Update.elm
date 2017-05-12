@@ -2,7 +2,6 @@ module Update exposing (update)
 
 import Model exposing (Model)
 import Msg exposing (Msg(..))
-import Types exposing (User)
 import Material
 import Material.Snackbar as Snackbar
 import Navigation
@@ -33,9 +32,6 @@ update msg model =
         NewUrl url ->
             model ! [ Navigation.newUrl url ]
 
-        GotUsers users ->
-            { model | users = users } ! []
-
         SelectMail mail ->
             { model | selectedMail = mail } ! []
 
@@ -62,21 +58,8 @@ urlUpdate model route =
             { model | history = route :: model.history }
     in
         case route of
-            Just (Route.Users) ->
-                -- Pretend we did an API call and it got us some new users
-                newModel ! [ fetchUsers newModel ]
+            Just (Route.RawData) ->
+                newModel ! []
 
             _ ->
                 newModel ! []
-
-
-fetchUsers : Model -> Cmd Msg
-fetchUsers newModel =
-    Task.perform
-        (always <| GotUsers (mockUser :: newModel.users))
-        (Task.succeed ())
-
-
-mockUser : User
-mockUser =
-    { name = "Jumpy McFiddlepants" }
