@@ -87,40 +87,42 @@ fieldRow name td =
 
 buttonRow : String -> Button -> Html msg
 buttonRow name button =
-    let shade = valueToShade button.value
-        properties = [ Typography.title ] ++
-            if button.pressed then
-                [ Color.background <| Color.color Color.Yellow shade ]
-            else
-                [ Color.text <| Color.color Color.Grey Color.S400 ]
-
+    let
         td = Table.td
-                 properties
+                 (properties button.value)
                  [ Html.text (toString button.value) ]
     in
         fieldRow name td
 
 stickRow : String -> Stick -> Html msg
 stickRow name { x, y } =
-    let magnitude = sqrt (x*x + y*y)
-        shade = valueToShade magnitude
-        properties = [ Typography.title ] ++ bg ++ fg
+    let
+        magnitude = sqrt (x*x + y*y)
+
+        td = Table.td
+                 (properties magnitude)
+                 [ Html.text ("(x: " ++ toString x ++ ", y: " ++ toString y ++ ")") ]
+    in
+        fieldRow name td
+
+properties : Float -> List (Options.Property c m)
+properties value =
+    let
+        typography = [ Typography.title ]
+
+        shade = valueToShade value
         bg =
-            if magnitude > 0.01 then
+            if value > 0.01 then
                 [ Color.background <| Color.color Color.Yellow shade ]
             else
                 []
         fg =
-            if magnitude < 0.11 then
+            if value < 0.11 then
                 [ Color.text <| Color.color Color.Grey Color.S400 ]
             else
                 []
-
-        td = Table.td
-                 properties
-                 [ Html.text ("(x: " ++ toString x ++ ", y: " ++ toString y ++ ")") ]
     in
-        fieldRow name td
+        typography ++ bg ++ fg
 
 valueToShade : Float -> Color.Shade
 valueToShade value =
