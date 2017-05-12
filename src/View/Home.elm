@@ -3,7 +3,7 @@ module View.Home exposing (view)
 import Model exposing (Model)
 import Msg exposing (Msg(..))
 import Html exposing (Html, div, text)
-import Html.Attributes
+import Html.Attributes exposing (style)
 import Material.Color as Color
 import Material.Grid as Grid exposing (grid, size, cell, Device(..))
 import Material.Elevation as Elevation
@@ -15,15 +15,16 @@ import Gamepad exposing (..)
 
 view : Model -> Html Msg
 view model =
-    div [] <|
+    div [
+            style [ ("background-color", "rgba(33, 33, 33, 1.0)") ]
+        ] <|
         case model.gamepads of
             [] -> [ noGamepadsCell ]
             _  -> List.map rawGamepadCell model.gamepads
 
 textCell : String -> Html msg
 textCell str =
-    grid
-        []
+    grid []
         [ cell
               [ size All 12 , Elevation.e2
               , Options.css "align-items" "center"
