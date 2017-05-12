@@ -54,7 +54,6 @@ view model =
                 , main =
                     [ viewBody model
                     , Snackbar.view model.snackbar |> Html.map Snackbar
-                    , helpDialog model
                     ]
                 }
 
@@ -153,13 +152,6 @@ viewDrawer model =
         (List.map (viewDrawerMenuItem model) menuItems)
             ++ [ Layout.spacer
                , viewSource model
-               , Layout.link
-                    [ Dialog.openOn "click"
-                    ]
-                    [ Icon.view "help"
-                        [ Color.text <| Color.color Color.Green Color.S900
-                        ]
-                    ]
                ]
 
 
@@ -201,27 +193,3 @@ viewBody model =
         Nothing ->
             text "404"
 
-
-helpDialog : Model -> Html Msg
-helpDialog model =
-    Dialog.view
-        []
-        [ Dialog.title [] [ text "About" ]
-        , Dialog.content []
-            [ Html.p []
-                [ text "elm-mdl is awesome." ]
-            , Html.p []
-                [ text "it really is." ]
-            ]
-        , Dialog.actions []
-            [ Options.styled Html.span
-                [ Dialog.closeOn "click" ]
-                [ Button.render Mdl
-                    [ 5, 1, 6 ]
-                    model.mdl
-                    [ Button.ripple
-                    ]
-                    [ text "Close" ]
-                ]
-            ]
-        ]
