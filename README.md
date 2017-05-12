@@ -15,8 +15,15 @@ $ git clone https://github.com/kfish/elm-gamepad-tester.git
 $ cd elm-gamepad
 $ elm-package install
 # elm-make src/Main.elm --output target/elm.js
-$ elm-reactor
 ```
+
+Then run a web server, such as:
+
+```
+$ python -m SimpleHTTPServer
+```
+
+and visit http://localhost:8000/
 
 ## Installation
 
