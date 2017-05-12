@@ -32,9 +32,6 @@ update msg model =
         NewUrl url ->
             model ! [ Navigation.newUrl url ]
 
-        SelectMail mail ->
-            { model | selectedMail = mail } ! []
-
         Toggle index ->
             let
                 toggles =

@@ -11,5 +11,4 @@ type Msg
     | NavigateTo Navigation.Location
     | NewUrl String
     | Toggle (List Int)
-    | SelectMail String
     | ViewSourceClick String

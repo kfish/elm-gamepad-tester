@@ -13,7 +13,6 @@ type alias Model =
     , snackbar : Snackbar.Model (Maybe Msg)
     , history : List (Maybe Route)
     , toggles : Dict (List Int) Bool
-    , selectedMail : String
     }
 
 
@@ -23,7 +22,6 @@ initialModel location =
     , snackbar = Snackbar.model
     , history = Route.init location
     , toggles = Dict.empty
-    , selectedMail = "elm.mdl@example.0"
     }
 
 

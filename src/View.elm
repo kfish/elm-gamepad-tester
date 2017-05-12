@@ -181,36 +181,6 @@ drawerHeader model =
             , css "border-radius" "24px"
             ]
             []
-        , Options.styled Html.div
-            [ css "display" "flex"
-            , css "flex-direction" "row"
-            , css "align-items" "center"
-            , css "width" "100%"
-            , css "position" "relative"
-            ]
-            [ Html.span [] [ text model.selectedMail ]
-            , Layout.spacer
-            , Menu.render Mdl
-                [ 1, 2, 3, 4 ]
-                model.mdl
-                [ Menu.ripple
-                , Menu.bottomRight
-                , Menu.icon "arrow_drop_down"
-                ]
-                [ Menu.item
-                    [ Menu.onSelect (SelectMail "elm.mdl@example.0") ]
-                    [ text "elm.mdl@example.0" ]
-                , Menu.item
-                    [ Menu.onSelect (SelectMail "elm.mdl@example.1") ]
-                    [ text "elm.mdl@example.1" ]
-                , Menu.item
-                    [ Menu.onSelect (SelectMail "elm.mdl@example.2") ]
-                    [ text "elm.mdl@example.2" ]
-                , Menu.item
-                    [ Menu.onSelect (SelectMail "elm.mdl@example.3") ]
-                    [ text "elm.mdl@example.3" ]
-                ]
-            ]
         ]
 
 
