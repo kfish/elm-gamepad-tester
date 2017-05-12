@@ -20,7 +20,7 @@ view model =
         ] <|
         case model.gamepads of
             [] -> [ noGamepadsCell ]
-            _  -> List.map rawGamepadCell model.gamepads
+            _  -> List.map gamepadCell model.gamepads
 
 textCell : String -> Html msg
 textCell str =
@@ -72,8 +72,8 @@ noGamepadsCell =
                 ]
             ]
 
-rawGamepadCell : Gamepad -> Html msg
-rawGamepadCell gamepad = case gamepad of
+gamepadCell : Gamepad -> Html msg
+gamepadCell gamepad = case gamepad of
     StandardGamepad standardGamepad ->
         Table.table []
             [ Table.thead []
