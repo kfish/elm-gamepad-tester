@@ -66,7 +66,7 @@ viewHeader model =
         [ Color.background <| Color.color Color.Grey Color.S100
         , Color.text <| Color.color Color.Grey Color.S900
         ]
-        [ Layout.title [] [ text "elm-mdl Dashboard Example" ]
+        [ Layout.title [] [ text "elm-gamepad Tester" ]
         , Layout.spacer
         , Layout.navigation []
             []
@@ -89,7 +89,7 @@ viewSource model =
         , Button.ripple
         , Button.colored
         , Button.raised
-        , Options.onClick (ViewSourceClick "https://github.com/vipentti/elm-mdl-dashboard")
+        , Options.onClick (ViewSourceClick "https://github.com/kfish/elm-gamepad-tester")
         ]
         [ text "View Source" ]
 
