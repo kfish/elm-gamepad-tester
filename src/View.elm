@@ -84,6 +84,7 @@ viewSource model =
         , css "margin-left" "80px"
         , css "margin-bottom" "40px"
         , css "z-index" "900"
+        , Color.background <| Color.color Color.Green Color.S500
         , Color.text Color.white
         , Button.ripple
         , Button.colored
