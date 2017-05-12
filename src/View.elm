@@ -54,7 +54,6 @@ view model =
                 , main =
                     [ viewBody model
                     , Snackbar.view model.snackbar |> Html.map Snackbar
-                    , viewSource model
                     , helpDialog model
                     ]
                 }
@@ -152,6 +151,7 @@ viewDrawer model =
     <|
         (List.map (viewDrawerMenuItem model) menuItems)
             ++ [ Layout.spacer
+               , viewSource model
                , Layout.link
                     [ Dialog.openOn "click"
                     ]
