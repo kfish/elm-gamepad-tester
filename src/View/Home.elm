@@ -24,8 +24,7 @@ textCell str =
     grid
         []
         [ cell
-              [ size All 12
-              , Elevation.e2
+              [ size All 12 , Elevation.e2
               , Options.css "align-items" "center"
               , Options.cs "mdl-grid"
               ]
@@ -76,20 +75,37 @@ rawGamepadCell gamepad = case gamepad of
     RawGamepad rg ->
         textCell (toString gamepad)
 
-fieldRow : Color.Hue -> String -> String -> Html msg
-fieldRow color name value =
+fieldRow : String -> Html msg -> Html msg
+fieldRow name td =
     Table.tr []
             [ Table.td [] [ Html.text name ]
-            , Table.td
-                    [ Table.numeric
-                    , Color.background <| Color.color color Color.S300
-                    -- , Typography.headline
-                    ]
-                    [ Html.text value ]
+            , td
             ]
 
 buttonRow : String -> Button -> Html msg
-buttonRow name button = fieldRow Color.Yellow name (toString button)
+buttonRow name button =
+    let properties =
+            if button.pressed then
+                [ Color.background <| Color.color Color.Yellow Color.S300 ]
+            else
+                []
+
+        td = Table.td
+                 properties
+                 [ Html.text (toString button) ]
+    in
+        fieldRow name td
 
 stickRow : String -> Stick -> Html msg
-stickRow name stick = fieldRow Color.Blue name (toString stick)
+stickRow name stick =
+    let properties =
+            if stick.button.pressed then
+                [ Color.background <| Color.color Color.Yellow Color.S300 ]
+            else
+                []
+
+        td = Table.td
+                 properties
+                 [ Html.text (toString stick) ]
+    in
+        fieldRow name td
