@@ -41,7 +41,10 @@ noGamepadsCell =
             [ Table.thead []
             [ Table.tr []
                 [ Table.th
-                    [ Options.attribute <| Html.Attributes.colspan 2 ]
+                    [ Options.attribute <| Html.Attributes.colspan 2
+                    , Color.background <| Color.color Color.Grey Color.S500
+                    , Color.text <| Color.color Color.BlueGrey Color.S900
+                    ]
                     [ Html.text "No gamepads detected. Press a button to activate." ]
                 ]
             ]
@@ -79,7 +82,10 @@ gamepadCell gamepad = case gamepad of
             [ Table.thead []
             [ Table.tr []
                 [ Table.th
-                    [ Options.attribute <| Html.Attributes.colspan 2 ]
+                    [ Options.attribute <| Html.Attributes.colspan 2
+                    , Color.background <| Color.color Color.Grey Color.S300
+                    , Color.text <| Color.color Color.BlueGrey Color.S900
+                    ]
                     [ Html.text standardGamepad.id]
                 ]
             ]
@@ -113,41 +119,31 @@ gamepadCell gamepad = case gamepad of
     RawGamepad rg ->
         textCell (toString gamepad)
 
-fieldRow : String -> Html msg -> Html msg
-fieldRow name td =
+fieldRow : String -> Float -> List (Html msg) -> Html msg
+fieldRow name value td =
     Table.tr []
-            [ Table.td [] [ Html.text name ]
-            , td
+            [ Table.td (properties value) [ Html.text name ]
+            , Table.td (properties value) td
             ]
 
 blankRow : String -> Html msg
-blankRow name =
-    let
-        td = Table.td
-                 []
-                 []
-    in
-        fieldRow name td
+blankRow name = fieldRow name 0 []
 
 buttonRow : String -> Button -> Html msg
 buttonRow name button =
     let
-        td = Table.td
-                 (properties button.value)
-                 [ Html.text (toString button.value) ]
+        td = [ Html.text (toString button.value) ]
     in
-        fieldRow name td
+        fieldRow name button.value td
 
 stickRow : String -> Stick -> Html msg
 stickRow name { x, y } =
     let
         magnitude = sqrt (x*x + y*y)
 
-        td = Table.td
-                 (properties magnitude)
-                 [ Html.text ("(x: " ++ toString x ++ ", y: " ++ toString y ++ ")") ]
+        td = [ Html.text ("(x: " ++ toString x ++ ", y: " ++ toString y ++ ")") ]
     in
-        fieldRow name td
+        fieldRow name magnitude td
 
 properties : Float -> List (Options.Property c m)
 properties value =
@@ -159,12 +155,14 @@ properties value =
             if value > 0.01 then
                 [ Color.background <| Color.color Color.Yellow shade ]
             else
-                []
+                [ Color.background <| Color.color Color.Grey Color.S500 ]
         fg =
             if value < 0.11 then
-                [ Color.text <| Color.color Color.Grey Color.S400 ]
+                [ Color.background <| Color.color Color.Grey Color.S500
+                , Color.text <| Color.color Color.Grey Color.S900
+                ]
             else
-                []
+                [ Color.text <| Color.color Color.BlueGrey Color.S900 ]
     in
         typography ++ bg ++ fg
 
