@@ -63,8 +63,8 @@ view model =
 viewHeader : Model -> Html Msg
 viewHeader model =
     Layout.row
-        [ Color.background <| Color.color Color.Grey Color.S100
-        , Color.text <| Color.color Color.Grey Color.S900
+        [ Color.background <| Color.black
+        , Color.text <| Color.color Color.Green Color.S500
         ]
         [ Layout.title [] [ text "elm-gamepad Tester" ]
         , Layout.spacer
@@ -130,12 +130,12 @@ viewDrawerMenuItem model menuItem =
     in
         Layout.link
             [ onClickCmd
-            , when isCurrentLocation (Color.background <| Color.color Color.BlueGrey Color.S600)
-            , Options.css "color" "rgba(255, 255, 255, 0.56)"
+            , when isCurrentLocation (Color.background <| Color.color Color.BlueGrey Color.S900)
+            , Options.css "color" "rgba(0, 255, 0, 0.56)"
             , Options.css "font-weight" "500"
             ]
             [ Icon.view menuItem.iconName
-                [ Color.text <| Color.color Color.BlueGrey Color.S500
+                [ Color.text <| Color.color Color.Green Color.S500
                 , Options.css "margin-right" "32px"
                 ]
             , text menuItem.text
@@ -145,8 +145,8 @@ viewDrawerMenuItem model menuItem =
 viewDrawer : Model -> Html Msg
 viewDrawer model =
     Layout.navigation
-        [ Color.background <| Color.color Color.BlueGrey Color.S800
-        , Color.text <| Color.color Color.BlueGrey Color.S50
+        [ Color.background <| Color.black
+        , Color.text <| Color.white
         , Options.css "flex-grow" "1"
         ]
     <|
@@ -156,7 +156,7 @@ viewDrawer model =
                     [ Dialog.openOn "click"
                     ]
                     [ Icon.view "help"
-                        [ Color.text <| Color.color Color.BlueGrey Color.S500
+                        [ Color.text <| Color.color Color.Green Color.S900
                         ]
                     ]
                ]
@@ -172,8 +172,8 @@ drawerHeader model =
         , css "height" "151px"
         , css "flex-direction" "column"
         , cs "demo-header"
-        , Color.background <| Color.color Color.BlueGrey Color.S900
-        , Color.text <| Color.color Color.BlueGrey Color.S50
+        , Color.background <| Color.black
+        , Color.text <| Color.color Color.Green Color.S900
         ]
         [ Options.styled Html.img
             [ Options.attribute <| src "images/elm.png"
