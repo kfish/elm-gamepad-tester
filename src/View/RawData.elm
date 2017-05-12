@@ -3,10 +3,34 @@ module View.RawData exposing (view)
 import Model exposing (Model)
 import Msg exposing (Msg(..))
 import Html exposing (Html, div, text)
+import Material.Grid as Grid exposing (grid, size, cell, Device(..))
+import Material.Elevation as Elevation
 import Material.List as List
+import Material.Options as Options exposing (css)
 
+import Gamepad exposing (Gamepad)
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ text (toString model.gamepads) ]
+    grid [] <|
+        case model.gamepads of
+            [] -> [ noGamepadsCell ]
+            _  -> List.map rawGamepadCell model.gamepads
+
+textCell : String -> Grid.Cell msg
+textCell str =
+    cell
+        [ size All 12
+        , Elevation.e2
+        , Options.css "align-items" "center"
+        , Options.cs "mdl-grid"
+        ]
+        [
+            text str
+        ]
+
+noGamepadsCell : Grid.Cell msg
+noGamepadsCell = textCell "No gamepads connected."
+
+rawGamepadCell : Gamepad -> Grid.Cell msg
+rawGamepadCell gamepad = textCell (toString gamepad)
