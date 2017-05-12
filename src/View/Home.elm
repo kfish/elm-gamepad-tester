@@ -58,13 +58,15 @@ rawGamepadCell gamepad = case gamepad of
                 , buttonRow "buttonX" standardGamepad.buttonX
                 , buttonRow "buttonY" standardGamepad.buttonY
 
-                , buttonRow "leftTrigger" standardGamepad.leftTrigger
-                , buttonRow "leftBumper " standardGamepad.leftBumper
-                , stickRow  "leftStick"   standardGamepad.leftStick
+                , buttonRow "leftTrigger"       standardGamepad.leftTrigger
+                , buttonRow "leftBumper "       standardGamepad.leftBumper
+                , stickRow  "leftStick"         standardGamepad.leftStick
+                , buttonRow "leftStick.button"  standardGamepad.leftStick.button
 
-                , buttonRow "rightTrigger" standardGamepad.rightTrigger
-                , buttonRow "rightBumper"  standardGamepad.rightBumper
-                , stickRow  "rightStick"   standardGamepad.rightStick
+                , buttonRow "rightTrigger"       standardGamepad.rightTrigger
+                , buttonRow "rightBumper"        standardGamepad.rightBumper
+                , stickRow  "rightStick"         standardGamepad.rightStick
+                , buttonRow "rightStick.button"  standardGamepad.rightStick.button
 
                 , buttonRow "dPadUp"    standardGamepad.dPadUp
                 , buttonRow "dPadDown"  standardGamepad.dPadDown
@@ -85,9 +87,10 @@ fieldRow name td =
 
 buttonRow : String -> Button -> Html msg
 buttonRow name button =
-    let properties = [ Typography.title ] ++
+    let shade = valueToShade button.value
+        properties = [ Typography.title ] ++
             if button.pressed then
-                [ Color.background <| Color.color Color.Yellow Color.S300 ]
+                [ Color.background <| Color.color Color.Yellow shade ]
             else
                 []
 
@@ -98,15 +101,40 @@ buttonRow name button =
         fieldRow name td
 
 stickRow : String -> Stick -> Html msg
-stickRow name stick =
-    let properties =
-            if stick.button.pressed then
-                [ Color.background <| Color.color Color.Yellow Color.S300 ]
+stickRow name { x, y } =
+    let magnitude = sqrt (x*x + y*y)
+        shade = valueToShade magnitude
+        properties = [ Typography.title ] ++
+            if magnitude > 0.01 then
+                [ Color.background <| Color.color Color.Yellow shade ]
             else
                 []
 
         td = Table.td
                  properties
-                 [ Html.text (toString stick) ]
+                 [ Html.text ("(x: " ++ toString x ++ ", y: " ++ toString y ++ ")") ]
     in
         fieldRow name td
+
+valueToShade : Float -> Color.Shade
+valueToShade value =
+    if abs value < 0.1 then
+        Color.S50
+    else if value < 0.2 then
+        Color.S100
+    else if value < 0.3 then
+        Color.S200
+    else if value < 0.4 then
+        Color.S300
+    else if value < 0.5 then
+        Color.S400
+    else if value < 0.6 then
+        Color.S500
+    else if value < 0.7 then
+        Color.S600
+    else if value < 0.8 then
+        Color.S700
+    else if value < 0.9 then
+        Color.S800
+    else
+        Color.S900
