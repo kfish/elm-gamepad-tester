@@ -7,6 +7,7 @@ import UrlParser exposing (parsePath, oneOf, map, top, s, (</>), string)
 type Route
     = Home
     | RawData
+    | Legend
 
 
 type alias Model =
@@ -16,8 +17,9 @@ type alias Model =
 pathParser : UrlParser.Parser (Route -> a) a
 pathParser =
     oneOf
-        [ map Home top
+        [ map Home    top
         , map RawData (s "data")
+        , map Legend  (s "legend")
         ]
 
 
@@ -40,6 +42,8 @@ urlFor loc =
         RawData ->
             "/data"
 
+        Legend ->
+            "/legend"
 
 locFor : Navigation.Location -> Maybe Route
 locFor path =
