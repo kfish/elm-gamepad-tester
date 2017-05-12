@@ -9,6 +9,7 @@ import Material.Grid as Grid exposing (grid, size, cell, Device(..))
 import Material.Elevation as Elevation
 import Material.Options as Options exposing (css)
 import Material.Table as Table
+import Material.Typography as Typography
 
 import Gamepad exposing (..)
 
@@ -84,7 +85,7 @@ fieldRow name td =
 
 buttonRow : String -> Button -> Html msg
 buttonRow name button =
-    let properties =
+    let properties = [ Typography.title ] ++
             if button.pressed then
                 [ Color.background <| Color.color Color.Yellow Color.S300 ]
             else
@@ -92,7 +93,7 @@ buttonRow name button =
 
         td = Table.td
                  properties
-                 [ Html.text (toString button) ]
+                 [ Html.text (toString button.value) ]
     in
         fieldRow name td
 
