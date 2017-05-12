@@ -92,7 +92,7 @@ buttonRow name button =
             if button.pressed then
                 [ Color.background <| Color.color Color.Yellow shade ]
             else
-                []
+                [ Color.text <| Color.color Color.Grey Color.S400 ]
 
         td = Table.td
                  properties
@@ -104,9 +104,15 @@ stickRow : String -> Stick -> Html msg
 stickRow name { x, y } =
     let magnitude = sqrt (x*x + y*y)
         shade = valueToShade magnitude
-        properties = [ Typography.title ] ++
+        properties = [ Typography.title ] ++ bg ++ fg
+        bg =
             if magnitude > 0.01 then
                 [ Color.background <| Color.color Color.Yellow shade ]
+            else
+                []
+        fg =
+            if magnitude < 0.11 then
+                [ Color.text <| Color.color Color.Grey Color.S400 ]
             else
                 []
 
