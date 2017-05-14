@@ -64,7 +64,10 @@ viewHeader model =
         [ Color.background <| Color.black
         , Color.text <| Color.color Color.Green Color.S500
         ]
-        [ Layout.title [] [ text "elm-gamepad Tester" ]
+        [ Layout.title []
+            [ Html.a [ href "https://github.com/kfish/elm-gamepad" ] [ text "elm-gamepad" ]
+            , text " Tester"
+            ]
         , Layout.spacer
         , Layout.navigation []
             []
