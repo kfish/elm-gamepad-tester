@@ -20,6 +20,6 @@ view model =
             , Options.cs "mdl-grid"
             ]
             [
-                img [ src "images/StandardGamepad.jpg" ] []
+                img [ src "https://raw.githubusercontent.com/kfish/elm-gamepad/master/images/StandardGamepad.jpg" ] []
             ]
         ]
