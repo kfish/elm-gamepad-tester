@@ -5,7 +5,7 @@ import Msg exposing (Msg(..))
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (style)
 import Material.Color as Color
-import Material.Grid as Grid exposing (grid, size, cell, Device(..))
+import Material.Grid as Grid exposing (Cell, grid, size, cell, Device(..))
 import Material.Elevation as Elevation
 import Material.Options as Options exposing (css)
 import Material.Table as Table
@@ -20,19 +20,17 @@ view model =
         ] <|
         case model.gamepads of
             [] -> [ noGamepadsCell ]
-            _  -> List.map gamepadCell model.gamepads
+            _  -> [ grid [] (List.map gamepadCell model.gamepads) ]
 
-textCell : String -> Html msg
-textCell str =
-    grid []
-        [ cell
-              [ size All 12 , Elevation.e2
-              , Options.css "align-items" "center"
-              , Options.cs "mdl-grid"
-              ]
-              [
-                  text str
-              ]
+cell6 : Html msg -> Cell msg
+cell6 contents =
+    cell
+        [ size All 6, Elevation.e2
+        -- , Options.css "align-items" "center"
+        -- , Options.cs "mdl-grid"
+        ]
+        [
+            contents
         ]
 
 noGamepadsCell : Html msg
@@ -49,11 +47,7 @@ noGamepadsCell =
                 ]
             ]
             , Table.tbody []
-                [ blankRow "buttonBack"
-                , blankRow "buttonStart"
-                , blankRow "buttonLogo"
-
-                , blankRow "buttonA"
+                [ blankRow "buttonA"
                 , blankRow "buttonB"
                 , blankRow "buttonX"
                 , blankRow "buttonY"
@@ -72,12 +66,18 @@ noGamepadsCell =
                 , blankRow "dPadDown"
                 , blankRow "dPadLeft"
                 , blankRow "dPadRight"
+
+                , blankRow "buttonBack"
+                , blankRow "buttonStart"
+                , blankRow "buttonLogo"
+
                 ]
             ]
 
-gamepadCell : Gamepad -> Html msg
+gamepadCell : Gamepad -> Cell msg
 gamepadCell gamepad = case gamepad of
     StandardGamepad standardGamepad ->
+    cell6 <|
         Table.table []
             [ Table.thead []
             [ Table.tr []
@@ -90,11 +90,7 @@ gamepadCell gamepad = case gamepad of
                 ]
             ]
             , Table.tbody []
-                [ buttonRow "buttonBack" standardGamepad.buttonBack
-                , buttonRow "buttonStart" standardGamepad.buttonStart
-                , buttonRow "buttonLogo" standardGamepad.buttonLogo
-
-                , buttonRow "buttonA" standardGamepad.buttonA
+                [ buttonRow "buttonA" standardGamepad.buttonA
                 , buttonRow "buttonB" standardGamepad.buttonB
                 , buttonRow "buttonX" standardGamepad.buttonX
                 , buttonRow "buttonY" standardGamepad.buttonY
@@ -113,11 +109,16 @@ gamepadCell gamepad = case gamepad of
                 , buttonRow "dPadDown"  standardGamepad.dPadDown
                 , buttonRow "dPadLeft"  standardGamepad.dPadLeft
                 , buttonRow "dPadRight" standardGamepad.dPadRight
+
+                , buttonRow "buttonBack" standardGamepad.buttonBack
+                , buttonRow "buttonStart" standardGamepad.buttonStart
+                , buttonRow "buttonLogo" standardGamepad.buttonLogo
+
                 ]
             ]
 
     RawGamepad rg ->
-        textCell (toString gamepad)
+        cell6 (text <| toString gamepad)
 
 fieldRow : String -> Float -> List (Html msg) -> Html msg
 fieldRow name value td =
