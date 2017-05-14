@@ -132,9 +132,17 @@ gamepadCell gamepad = case gamepad of
                 ]
             ]
             , Table.tbody []
-                ( List.map (\(i, button) -> buttonRow ("button[" ++ toString i ++ "]") button) (ix rawGamepad.buttons)
+                ( stringRow "mapping" (toString rawGamepad.mapping) -- put qutoes around to emphasize the empty string
+                  :: List.map (\(i, button) -> buttonRow ("button[" ++ toString i ++ "]") button) (ix rawGamepad.buttons)
                   ++ List.map (\(i, axis) -> valueRow ("axes[" ++ toString i ++ "]") axis) (ix rawGamepad.axes)
                 )
+            ]
+
+stringRow : String -> String -> Html msg
+stringRow name value =
+    Table.tr []
+            [ Table.td (properties 0) [ Html.text name ]
+            , Table.td (css "text-align" "left" :: properties 0) [ Html.text value ]
             ]
 
 fieldRow : String -> Float -> List (Html msg) -> Html msg
