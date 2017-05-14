@@ -124,7 +124,7 @@ fieldRow : String -> Float -> List (Html msg) -> Html msg
 fieldRow name value td =
     Table.tr []
             [ Table.td (properties value) [ Html.text name ]
-            , Table.td (properties value) td
+            , Table.td (css "text-align" "left" :: properties value) td
             ]
 
 blankRow : String -> Html msg
