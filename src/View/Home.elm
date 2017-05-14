@@ -117,8 +117,25 @@ gamepadCell gamepad = case gamepad of
                 ]
             ]
 
-    RawGamepad rg ->
-        cell6 (text <| toString gamepad)
+    RawGamepad rawGamepad ->
+        let ix xs = List.map2 (,) (List.range 0 (List.length xs)) xs in
+    cell6 <|
+        Table.table []
+            [ Table.thead []
+            [ Table.tr []
+                [ Table.th
+                    [ Options.attribute <| Html.Attributes.colspan 2
+                    , Color.background <| Color.color Color.Grey Color.S300
+                    , Color.text <| Color.color Color.BlueGrey Color.S900
+                    ]
+                    [ Html.text rawGamepad.id]
+                ]
+            ]
+            , Table.tbody []
+                ( List.map (\(i, button) -> buttonRow ("button[" ++ toString i ++ "]") button) (ix rawGamepad.buttons)
+                  ++ List.map (\(i, axis) -> valueRow ("axes[" ++ toString i ++ "]") axis) (ix rawGamepad.axes)
+                )
+            ]
 
 fieldRow : String -> Float -> List (Html msg) -> Html msg
 fieldRow name value td =
@@ -130,12 +147,15 @@ fieldRow name value td =
 blankRow : String -> Html msg
 blankRow name = fieldRow name 0 []
 
-buttonRow : String -> Button -> Html msg
-buttonRow name button =
+valueRow : String -> Float -> Html msg
+valueRow name value =
     let
-        td = [ Html.text (toString button.value) ]
+        td = [ Html.text (toString value) ]
     in
-        fieldRow name button.value td
+        fieldRow name value td
+
+buttonRow : String -> Button -> Html msg
+buttonRow name button = valueRow name button.value
 
 stickRow : String -> Stick -> Html msg
 stickRow name { x, y } =
