@@ -56,13 +56,4 @@ update msg model =
 
 urlUpdate : Model -> Maybe Route -> ( Model, Cmd Msg )
 urlUpdate model route =
-    let
-        newModel =
-            { model | history = route :: model.history }
-    in
-        case route of
-            Just (Route.RawData) ->
-                newModel ! []
-
-            _ ->
-                newModel ! []
+    { model | history = route :: model.history } ! []
