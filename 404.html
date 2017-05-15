@@ -6,6 +6,24 @@
 <meta http-equiv="refresh" content="0;URL='/elm-gamepad-tester'">
 </head>
 <body>
+
+<h1>Single Page App redirection for Github Pages</h1>
+<p>
+The script in the &lt;head&gt; element sets the attempted entrance URL to a variable
+on the standard sessionStorage object and immediately redirects to your project’s
+index.html page using a meta refresh tag. If you’re doing a Github Organization
+site, don’t put a repo name in the content attribute replacer text, just do this: content="0;URL='/'"
+</p>
+<p>
+There is a companion script in the &lt;head&gt; of index.html that updates history.
+</p>
+<p>
+Note: this 404.html page must be greater than 512 bytes or it will not work in IE.
+</p>
+<p>
+Reference: <a href="https://www.smashingmagazine.com/2016/08/sghpa-single-page-app-hack-github-pages/">S(GH)PA: The Single-Page App Hack For GitHub Pages</a>
+</p>
+
 </body>
 </html>
 
