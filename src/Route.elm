@@ -3,6 +3,8 @@ module Route exposing (..)
 import Navigation
 import UrlParser exposing (parsePath, oneOf, map, top, s, (</>), string)
 
+home : String
+home = "elm-gamepad-tester"
 
 type Route
     = Home
@@ -17,9 +19,9 @@ type alias Model =
 pathParser : UrlParser.Parser (Route -> a) a
 pathParser =
     oneOf
-        [ map Home    top
-        , map RawData (s "data")
-        , map Legend  (s "legend")
+        [ map Home    (s home)
+        , map RawData (s home </> s "data")
+        , map Legend  (s home </> s "legend")
         ]
 
 
@@ -34,7 +36,7 @@ init location =
 
 
 urlFor : Route -> String
-urlFor loc =
+urlFor loc = "/" ++ home ++
     case loc of
         Home ->
             "/"
