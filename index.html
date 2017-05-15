@@ -29,6 +29,19 @@
            -->
         <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Event.focusin"></script>
 
+        <!-- Capture and restore the URL the user initially navigated toa, as
+             set by the "sessionStorage.redirect = location.href" in 404.html.
+             See: https://www.smashingmagazine.com/2016/08/sghpa-single-page-app-hack-github-pages/
+          -->
+        <script>
+            (function(){
+              var redirect = sessionStorage.redirect;
+              delete sessionStorage.redirect;
+              if (redirect && redirect != location.href) {
+                history.replaceState(null, null, redirect);
+              }
+            })();
+        </script>
 
     </head>
     <body>
